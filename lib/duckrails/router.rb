@@ -7,7 +7,6 @@ module Duckrails
     class << self
       def register_mock(mock)
         REGISTERED_MOCKS << mock.id
-        Duckrails::ApplicationState.instance.update_token :mock
         REGISTERED_MOCKS.uniq!
       end
 
@@ -19,7 +18,6 @@ module Duckrails
 
       def unregister_mock(mock)
         REGISTERED_MOCKS.delete mock.id
-        Duckrails::ApplicationState.instance.update_token :mock
       end
 
       def reset!
