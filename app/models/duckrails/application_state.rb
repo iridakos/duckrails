@@ -13,17 +13,14 @@ module Duckrails
     def update_token(type)
       case type
       when :mock
-        self.mock_synchronization_token = Synchronizer.generate_token
+        after_save :save_timestamp
         save
       end
     end
 
-    class << self
-      # @return [ApplicationState] the one and only application state
-      def instance
-        ApplicationState.first || ApplicationState.create(singleton_guard: 0,
-                                                          mock_synchronization_token: Synchronizer.generate_token)
-      end
+    def save_timestamp
+      ts = Time.zone.now.to_i
+      Rails.cache.write(:routes_changed_timestamp, ts)
     end
   end
 end

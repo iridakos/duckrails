@@ -1,18 +1,15 @@
 module Duckrails
   class Synchronizer
-    cattr_accessor :mock_synchronization_token
-
     def initialize(app)
       @app = app
     end
 
     def call(env)
-      application_state = Duckrails::ApplicationState.instance
-
-      if Duckrails::Synchronizer.mock_synchronization_token != application_state.mock_synchronization_token
+      timestamp = Rails.cache.read(:routes_changed_timestamp)
+      if Thread.current[:routes_changed_timestamp] != timestamp
         Rails.logger.info 'Mock synchronization token missmatch. Syncronizing...'
         Router.reset!
-        Duckrails::Synchronizer.mock_synchronization_token = application_state.mock_synchronization_token
+        Thread.current[:routes_changed_timestamp] = timestamp
         Rails.logger.info 'Mock synchronization completed.'
       end
 
