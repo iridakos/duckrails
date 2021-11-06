@@ -1,0 +1,19 @@
+{
+  "name": "duckrails",
+  "private": true,
+  "dependencies": {
+    "@nathanvda/cocoon": "^1.2.14",
+    "@rails/actioncable": "^6.0.0",
+    "@rails/activestorage": "^6.0.0",
+    "@rails/ujs": "^6.0.0",
+    "@rails/webpacker": "4.3.0",
+    "bootstrap": "4.3.1",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1",
+    "webpack-jquery-ui": "^2.0.1"
+  },
+  "version": "0.1.0",
+  "devDependencies": {
+    "webpack-dev-server": "^3.11.0"
+  }
+}

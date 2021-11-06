@@ -112,14 +112,14 @@ module Duckrails
 
       context 'inclusion' do
         it { should validate_inclusion_of(:body_type).
-          in_array([Duckrails::Mock::SCRIPT_TYPE_STATIC,
-            Duckrails::Mock::SCRIPT_TYPE_EMBEDDED_RUBY])
+          in_array([Duckrails::Scripts::SCRIPT_TYPE_STATIC,
+            Duckrails::Scripts::SCRIPT_TYPE_EMBEDDED_RUBY])
         }
 
         it {
           should validate_inclusion_of(:script_type).
-          in_array([Duckrails::Mock::SCRIPT_TYPE_STATIC,
-            Duckrails::Mock::SCRIPT_TYPE_EMBEDDED_RUBY])
+          in_array([Duckrails::Scripts::SCRIPT_TYPE_STATIC,
+            Duckrails::Scripts::SCRIPT_TYPE_EMBEDDED_RUBY])
         }
       end
 
@@ -192,19 +192,19 @@ module Duckrails
         subject { FactoryBot.build(:mock, body_type: body_type).dynamic? }
 
         context 'with static body type' do
-          let(:body_type) { Duckrails::Mock::SCRIPT_TYPE_STATIC }
+          let(:body_type) { Duckrails::Scripts::SCRIPT_TYPE_STATIC }
 
           it { should be false }
         end
 
         context 'with embedded ruby body type' do
-          let(:body_type) { Duckrails::Mock::SCRIPT_TYPE_EMBEDDED_RUBY }
+          let(:body_type) { Duckrails::Scripts::SCRIPT_TYPE_EMBEDDED_RUBY }
 
           it { should be true }
         end
 
         context 'with js body type' do
-          let(:body_type) { Duckrails::Mock::SCRIPT_TYPE_JS }
+          let(:body_type) { Duckrails::Scripts::SCRIPT_TYPE_JS }
 
           it { should be true }
         end

@@ -20,10 +20,10 @@ RSpec.describe 'duckrails/mocks/_form.html.erb', type: :view do
   subject { rendered }
 
   it { should have_field 'Name' }
-  it { should have_css '.hint', text: t(:field_header_name_hint) }
+  it { should have_css '.form-text.text-muted', text: t(:field_header_name_hint) }
 
   it { should have_field 'Value' }
-  it { should have_css '.hint', text: t(:field_header_value_hint) }
+  it { should have_css '.form-text.text-muted', text: t(:field_header_value_hint) }
 
   it { should have_css 'a[href="#"] i.fa.fa-remove' }
 end

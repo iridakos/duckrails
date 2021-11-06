@@ -1,16 +1,16 @@
 <div class="header-fields">
   <div class="row">
-    <div class="small-12 columns">
+    <div class="col-12">
       <div class="row">
-        <div class="small-12 medium-3 columns">
+        <div class="col-12 col-md-3">
           <%= f.input :name, hint: t(:field_header_name_hint) %>
         </div>
 
-        <div class="small-12 medium-7 columns">
+        <div class="col-12 col-md-7 columns">
           <%= f.input :value, hint: t(:field_header_value_hint) %>
         </div>
 
-        <div class="small-12 medium-2 columns text-center">
+        <div class="col-12 col-md-2 columns text-center">
           <label>&nbsp;</label>
           <%= link_to_remove_association f, wrapper_class: 'header-fields', class: 'button tiny' do %>
             <i class="fa fa-remove"></i>

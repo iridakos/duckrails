@@ -1,79 +1,22 @@
-textarea {
-  &.tall {
-    height: 400px;
+.mock-form {
+  .tab-content {
+    p {
+      margin-top: 5px;
+      color: #666;
+    }
   }
 
-  &.short {
-    height: 100px;
-  }
-}
-
-table {
-  &.mocks {
-    width: 100%;
-
-    td.actions {
-      width: 5%;
-      white-space: nowrap;
-    }
-
-    a.button {
-      margin-bottom: 0;
-    }
-
-    span.active {
-      color: #31B404;
-    }
-
-    span.inactive {
-      color: #CCCCCC;
+  .nav-tabs {
+    .nav-link {
+      &.error {
+        color: #dc3545;
+      }
     }
   }
 }
 
-div.mock {
-  clear: both;
-
-  border: 1px solid #80d4ff;
-  background-color: #cceeff;
-  margin-bottom: 10px;
-  padding: 10px;
-  min-height: 50px;
-  cursor: move;
-
-  &:after {
-    content: " ";
-    display: block;
-    height: 0;
-    clear: both;
-  }
-
-  .mock-name {
-    font-size: 20px;
-    font-weight: bold;
-    color: #444;
-  }
-
-  .mock-request-method {
-    color: #004466;
-    margin-right: 10px;
-    font-weight: bold;
-  }
-
-  .mock-path {
-    color: #555555;
-    font-weight: bold;
-  }
-}
-
-.sortable-placeholder {
-  border: 1px dashed #CCC;
-  background-color: #f9f9f9;
-  min-height: 50px;
-  margin-bottom: 10px;
-}
-
-.sortable {
-  display: list-item;
-  list-style: none;
+.sorting-mock {
+  border: 1px solid #666;
+  padding: 5px;
+  border-radius: 5px;
 }

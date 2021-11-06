@@ -1,0 +1,32 @@
+development:
+  handlers:
+    embedded_ruby:
+      enabled: true
+    js:
+      enabled: true
+    liquid:
+      enabled: true
+    static:
+      enabled: true
+
+test:
+  handlers:
+    embedded_ruby:
+      enabled: true
+    js:
+      enabled: true
+    liquid:
+      enabled: true
+    static:
+      enabled: true
+
+production:
+  handlers:
+    embedded_ruby:
+      enabled: true
+    js:
+      enabled: true
+    liquid:
+      enabled: true
+    static:
+      enabled: true

@@ -2,19 +2,20 @@
 
 <h1><%= t :mocks %></h1>
 
-<p class="page-guide">
+<p class="subtitle">
   <%= t :mocks_index_page_guide %>
 </p>
 
 <% if @mocks.blank? %>
-  <div class="alert-box warning">
+  <div class="alert alert-warning">
     <%= t :no_mocks_warning %>
   </div>
 <% else %>
-  <table class="mocks">
+  <table class="table mocks">
       <thead>
         <tr>
           <th><%= t :mock_name %></th>
+          <th><%= t :mock_body_type %></th>
           <th><%= t :mock_method %></th>
           <th><%= t :mock_route %></th>
           <th class="text-center"><%= t :mock_active %></th>
@@ -25,8 +26,12 @@
       <tbody>
         <% @mocks.each do |mock| %>
           <tr data-mock-id="<%= mock.id %>">
-            <td>
+            <td class="font-weight-bold">
               <%= mock.name %>
+            </td>
+
+            <td>
+              <%= t(mock.body_type) %>
             </td>
 
             <td>
@@ -44,25 +49,11 @@
             </td>
 
             <td class="actions">
-              <%= link_to edit_duckrails_mock_path(mock),
-                          title: 'Edit mock',
-                          class: 'button tiny edit' do %>
-                <i class="fa fa-edit"></i>
-              <% end %>
-
-              <%= link_to duckrails_mock_path(mock), method: :delete,
-                                           title: 'Delete mock',
-                                           data: {
-                                             confirm: t(:mock_deletion_confirmation)
-                                           }, class: 'button tiny delete' do %>
-                <i class="fa fa-remove"></i>
-              <% end %>
-
               <%= link_to deactivate_duckrails_mock_path(mock), method: :put,
                                            title: 'Deactivate mock',
                                            data: {
                                              confirm: t(:mock_deactivation_confirmation)
-                                           }, class: 'button tiny deactivate secondary' do %>
+                                           }, class: 'btn btn-link btn-sm text-secondary deactivate' do %>
                 <i class="fa fa-pause"></i>
               <% end if mock.active? %>
 
@@ -70,9 +61,23 @@
                                            title: 'Activate mock',
                                            data: {
                                              confirm: t(:mock_activation_confirmation)
-                                           }, class: 'button tiny activate success' do %>
+                                           }, class: 'btn btn-link btn-sm text-success activate' do %>
                 <i class="fa fa-play"></i>
               <% end unless mock.active? %>
+
+              <%= link_to edit_duckrails_mock_path(mock),
+                          title: 'Edit mock',
+                          class: 'btn btn-sm btn-link text-primary edit' do %>
+                <i class="fa fa-edit"></i>
+              <% end %>
+
+              <%= link_to duckrails_mock_path(mock), method: :delete,
+                                           title: 'Delete mock',
+                                           data: {
+                                             confirm: t(:mock_deletion_confirmation)
+                                           }, class: 'btn btn-link btn-sm text-danger delete' do %>
+                <i class="fa fa-remove"></i>
+              <% end %>
             </td>
           </tr>
         <% end %>
@@ -80,7 +85,7 @@
   </table>
 
   <div class="row">
-    <div class="small-12 columns">
+    <div class="col-12">
       <%= paginate @mocks %>
     </div>
   </div>
@@ -88,17 +93,17 @@
 
 <div class="page-actions">
   <div class="row">
-    <div class="small-12 columns">
+    <div class="col-12">
       <%= link_to duckrails_mocks_path(sort: true),
                   title: "Change the order of the mocks",
-                  class: 'button secondary' do %>
+                  class: 'btn btn-secondary' do %>
         <i class="fa fa-bars"></i>
         <span><%= t :change_mocks_order %></span>
       <% end if @mocks.size > 1 %>
 
       <%= link_to new_duckrails_mock_path,
                   title: "Create a new mock",
-                  class: 'button' do %>
+                  class: 'btn btn-success' do %>
         <i class="fa fa-plus"></i>
         <span><%= t :create_new_mock %></span>
       <% end %>

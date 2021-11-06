@@ -25,7 +25,7 @@ end
 
 Then /^The mock form should( not)? have errors$/ do |should_not|
   should_mode = should_not ? :not_to : :to
-  expect(page).send(should_mode, have_css('form.mock-form small.error'))
+  expect(page).send(should_mode, have_css('form.mock-form .invalid-feedback'))
 end
 
 When /^I submit the mock form$/ do
@@ -34,17 +34,16 @@ end
 
 Then /^The (General|Response body|Headers|Advanced) tab of the mock form should( not)? have errors$/ do |tab, should_not|
   should_mode = should_not ? :not_to : :to
-  expect(page).send should_mode, have_css('form.mock-form ul.tabs li.tab-title a.error', text: tab)
+  expect(page).send should_mode, have_css('form.mock-form ul.nav-tabs li a.error', text: tab)
 end
 
 And /^The (General|Response body|Headers|Advanced) tab of the mock form should be selected$/ do |tab|
-  expect(page).to have_css("form.mock-form div.active##{tab.parameterize.underscore}")
-  expect(page).to have_css('form.mock-form ul.tabs li.tab-title.active a', text: tab)
+  expect(page).to have_css('form.mock-form ul.nav-tabs li a.active', text: tab)
 end
 
 Then /^The (.*) field of the mock form should have an error message "(.*)"$/ do |field, error|
   field_id = "duckrails_mock_#{field.parameterize.underscore}"
-  expect(page).to have_css "form.mock-form div.error.#{field_id} small.error", text: error
+  expect(page).to have_css "form.mock-form div.#{field_id} .invalid-feedback", text: error
 end
 
 When /^I click the (General|Response body|Headers|Advanced) tab of the mock form$/ do |tab|

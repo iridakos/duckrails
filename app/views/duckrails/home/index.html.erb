@@ -1,33 +1,31 @@
 <% title t(:home) %>
 
 <div class="row">
-  <div class="small-12 columns text-center">
+  <div class="col-12 text-center">
     <div class="welcome">
       <div class="left">
-        <%= image_tag 'duckrails.png', class: 'duckrails-logo' %>
+        <%= image_tag 'duckrails.png', class: 'logo' %>
       </div>
 
-      <div class="home-welcome left">
-        <h1><%= t(:mock_the_universe) %></h1>
-        <p class="page-guide">
-          <%= t(:welcome_message) %>
+      <div class="home-welcome left mb-5">
+        <h1><%= t(:welcome_message) %></h1>
+
+        <p>
+          <%= t(:introduction) %>
         </p>
       </div>
     </div>
   </div>
 </div>
 
-
 <div class="row">
-  <div class="small-12 medium-6 columns">
-    <%= link_to duckrails_mocks_path, class: 'button expand' do %>
-      <i class="fa fa-street-view"></i>
+  <div class="col-12 text-center">
+    <%= link_to duckrails_mocks_path, class: 'btn btn-primary' do %>
+      <i class="fa fa-list"></i>
       <span><%= t(:view_all_mocks) %></span>
     <% end %>
-  </div>
 
-  <div class="small-12 medium-6 columns end">
-    <%= link_to new_duckrails_mock_path, class: 'button expand' do %>
+    <%= link_to new_duckrails_mock_path, class: 'btn btn-success' do %>
       <i class="fa fa-plus"></i>
       <span><%= t(:create_new_mock) %></span>
     <% end %>

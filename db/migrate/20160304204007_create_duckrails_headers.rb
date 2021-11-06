@@ -1,4 +1,4 @@
-class CreateDuckrailsHeaders < ActiveRecord::Migration
+class CreateDuckrailsHeaders < ActiveRecord::Migration[4.2]
   def change
     create_table :headers do |t|
       t.string :name, null: false

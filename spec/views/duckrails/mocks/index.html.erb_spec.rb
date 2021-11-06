@@ -25,10 +25,10 @@ RSpec.describe 'duckrails/mocks/index.html.erb', type: :view do
 
   context 'content' do
     it { should have_css 'h1', text: t(:mocks) }
-    it { should have_css 'p.page-guide', text: t(:mocks_index_page_guide) }
+    it { should have_css 'p.subtitle', text: t(:mocks_index_page_guide) }
 
     context 'without mocks' do
-      it { should have_css '.alert-box.warning', text: t(:no_mocks_warning) }
+      it { should have_css '.alert.alert-warning', text: t(:no_mocks_warning) }
       it { should_not have_css 'table.mocks' }
 
       it { should_not have_css "a.button[href='#{view.duckrails_mocks_path(sort: true)}']", text: t(:change_mocks_order) }
@@ -38,7 +38,7 @@ RSpec.describe 'duckrails/mocks/index.html.erb', type: :view do
       let(:per_page) { 10 }
       let(:with_mocks) { true }
 
-      it { should_not have_css '.alert-box.warning', text: t(:no_mocks_warning) }
+      it { should_not have_css '.alert.alert-warning', text: t(:no_mocks_warning) }
 
       context 'table' do
         subject { page.find 'table.mocks' }
@@ -78,7 +78,7 @@ RSpec.describe 'duckrails/mocks/index.html.erb', type: :view do
       end
 
       context 'actions' do
-        it { should have_css "a.button[href='#{view.duckrails_mocks_path(sort: true)}']", text: t(:change_mocks_order) }
+        it { should have_css "a.btn[href='#{view.duckrails_mocks_path(sort: true)}']", text: t(:change_mocks_order) }
       end
     end
 

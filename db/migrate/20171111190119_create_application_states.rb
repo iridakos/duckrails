@@ -1,4 +1,4 @@
-class CreateApplicationStates < ActiveRecord::Migration
+class CreateApplicationStates < ActiveRecord::Migration[4.2]
   def change
     create_table :application_state do |t|
       t.integer :singleton_guard, default: 0

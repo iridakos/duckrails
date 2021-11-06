@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title><%= content_for?(:title) ? yield(:title) : 'DuckRails' %></title>
-
-    <%= stylesheet_link_tag    "application" %>
-    <%= javascript_include_tag "vendor/modernizr" %>
-    <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <title><%= content_for(:title) || 'DuckRails' %></title>
+
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_pack_tag 'application' %>
   </head>
 
   <body>
-    <%= render 'shared/header' %>
+    <%= render 'shared/navigation_bar' %>
 
-    <div class="row">
-      <div class="small-12 columns">
-        <div class="body-content">
-          <%= yield %>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="body-content">
+            <%= yield %>
+          </div>
         </div>
       </div>
-    </div>
 
-    <%= render 'shared/footer' %>
+      <%= render 'shared/footer' %>
+    </div>
   </body>
 </html>
