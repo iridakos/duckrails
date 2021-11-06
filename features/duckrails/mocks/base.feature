@@ -6,8 +6,8 @@ Background:
   * I visit the mocks page
   * I should see a link with text 'Create new mock'
   * I should not see a link with text 'View all mocks'
-  * I should see a menu link with text 'View all mocks'
-  * I should see a menu link with text 'Create new mock'
+  * I should see a menu link with text 'All mocks'
+  * I should see a menu link with text 'New mock'
   * There should be an entry for mock with id 0
   * There should be an entry for mock with id 1
   * There should be an entry for mock with id 2

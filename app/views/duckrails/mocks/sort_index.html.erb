@@ -2,7 +2,7 @@
 
 <h1><%= t :change_mocks_order %></h1>
 
-<p class="page-guide">
+<p class="subtitle">
   <%= t :mocks_sort_index_page_guide %>
 </p>
 
@@ -14,24 +14,26 @@
                   mock_success_url: duckrails_mocks_path
                 } do %>
     <% @mocks.each do |mock| %>
-      <%= content_tag :div, data: { mock_id: mock.id, old_pos: mock.mock_order }, class: 'mock' do %>
-        <div class="left mock-name">
-          <%= mock.name %>
-        </div>
+      <div class="clearfix mb-2 sorting-mock">
+        <%= content_tag :div, data: { mock_id: mock.id, old_pos: mock.mock_order }, class: 'mock' do %>
+          <div class="float-left mock-name">
+            <%= mock.name %>
+          </div>
 
-        <div class="right mock-path">
-          <%= mock.route_path %>
-        </div>
+          <div class="float-right mock-path ml-4 text-primary">
+            <%= mock.route_path %>
+          </div>
 
-        <div class="right mock-request-method">
-          <%= mock.request_method %>
-        </div>
-      <% end %>
+          <div class="float-right mock-request-method text-muted">
+            <small><%= mock.request_method %></small>
+          </div>
+        <% end %>
+      </div>
     <% end %>
 <% end %>
 
-<div class="page-actions">
-  <%= link_to t(:cancel), duckrails_mocks_path, class: 'button secondary' %>
+<div class="page-actions mt-3">
+  <%= link_to t(:cancel), duckrails_mocks_path, class: 'btn btn-secondary' %>
 
-  <%= link_to t(:save), '#', class: 'button success update-mocks-order' %>
+  <%= link_to t(:save), '#', class: 'btn btn-success update-mocks-order' %>
 </div>
