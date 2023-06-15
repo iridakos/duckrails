@@ -1,4 +1,4 @@
-FROM ruby:2.4-stretch
+FROM arm64v8/ruby:2.6-buster
 LABEL maintainer="Lazarus Lazaridis http://iridakos.com"
 
 # Change to repo directory
@@ -13,7 +13,7 @@ EXPOSE 80
 
 # Add Required Packages
 RUN apt-get update \
-	  && apt-get install -y --no-install-recommends nodejs libpq-dev libxml2-dev default-libmysqlclient-dev libsqlite3-dev \
+    && apt-get install -y --no-install-recommends nodejs libpq-dev libxml2-dev default-libmysqlclient-dev libsqlite3-dev sqlite3\
     && rm -rf /var/lib/apt/lists/*
 
 # Add docker entrypoint.sh
@@ -21,6 +21,8 @@ COPY docker-entrypoint.sh /
 
 # Copy in Gemfile
 COPY Gemfile Gemfile.lock ./
+
+RUN gem install bundler:1.17.3
 
 # Install Gems
 RUN bundle install --deployment --without development test --binstubs --jobs=2 --retry=4
