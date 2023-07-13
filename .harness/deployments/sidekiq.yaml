@@ -1,8 +1,0 @@
-replicaCount: 1
-resources:
-  limits:
-    cpu: 300m
-    memory: 2Gi
-  requests:
-    cpu: 50m
-    memory: 500Mi

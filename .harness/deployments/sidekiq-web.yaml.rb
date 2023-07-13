@@ -1,2 +1,4 @@
 require "../base.yaml"
-# replicaCount: 1
+
+healthCheck:
+  http: true
