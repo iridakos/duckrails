@@ -1,4 +1,4 @@
-replicaCount: 10
+replicaCount: 1
 resources:
   limits:
     cpu: "1"

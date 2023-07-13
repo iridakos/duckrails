@@ -1,4 +1,4 @@
-replicaCount: 2
+replicaCount: 1
 healthCheck:
   http: true
 resources:
