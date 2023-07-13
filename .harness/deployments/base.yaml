@@ -1,8 +1,8 @@
 replicaCount: 1
 resources:
   limits:
-    cpu: "1"
+    cpu: 300m
     memory: 2Gi
   requests:
-    cpu: 100m
-    memory: 300Mi
+    cpu: 50m
+    memory: 500Mis
