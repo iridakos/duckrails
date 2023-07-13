@@ -1,0 +1,4 @@
+serviceName: duckrails
+services:
+  api: {}
+  sidekiq: {}
