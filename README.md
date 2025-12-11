@@ -1,3 +1,19 @@
+# Note
+
+⚠️ **Project Status: No Longer Maintained**
+
+This repository is no longer maintained.
+The code is preserved here for archival and reference purposes only.
+
+No features or bug fixes will be added.
+
+Issues and pull requests may not receive responses.
+
+Feel free to fork the project if you’d like to continue development.
+
+Thank you to everyone who has used or contributed to this project!
+
+
 # DuckRails [![GitHub version](https://badge.fury.io/gh/iridakos%2Fduckrails.svg?a=5)](https://badge.fury.io/gh/iridakos%2Fduckrails?a=5) [![Build Status](https://travis-ci.org/iridakos/duckrails.svg?branch=master)](https://travis-ci.org/iridakos/duckrails)
 
 DuckRails is a development tool.
