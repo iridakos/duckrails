@@ -1,35 +1,40 @@
+require 'route_validator'
+require 'duckrails/mock'
+
 module Duckrails
   class Router
     METHODS = [:get, :post, :put, :patch, :delete, :options, :head].freeze
 
-    REGISTERED_MOCKS = []
+    @registered_mocks = []
 
     class << self
+      attr_reader :registered_mocks
+
       def register_mock(mock)
-        REGISTERED_MOCKS << mock.id
+        @registered_mocks << mock.id
         Duckrails::ApplicationState.instance.update_token :mock
-        REGISTERED_MOCKS.uniq!
+        @registered_mocks.uniq!
       end
 
       def register_current_mocks
-        REGISTERED_MOCKS << Duckrails::Mock.pluck(:id)
-        REGISTERED_MOCKS.flatten!
-        REGISTERED_MOCKS.uniq!
+        @registered_mocks << Duckrails::Mock.pluck(:id)
+        @registered_mocks.flatten!
+        @registered_mocks.uniq!
       end
 
       def unregister_mock(mock)
-        REGISTERED_MOCKS.delete mock.id
+        @registered_mocks.delete mock.id
         Duckrails::ApplicationState.instance.update_token :mock
       end
 
       def reset!
-        REGISTERED_MOCKS.clear
+        @registered_mocks.clear
         register_current_mocks
         reload_routes!
       end
 
       def load_mock_routes!
-        mocks =  REGISTERED_MOCKS.map do |mock_id|
+        mocks =  @registered_mocks.map do |mock_id|
           Duckrails::Mock.find mock_id
         end
 
@@ -38,6 +43,12 @@ module Duckrails
         mocks.each do |mock|
           define_route mock
         end
+      end
+
+      def clear_routes!(reload: false)
+        @registered_mocks = []
+
+        reload_routes! if reload
       end
 
       def reload_routes!

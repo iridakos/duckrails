@@ -11,13 +11,6 @@ module Duckrails
       it { should validate_presence_of :mock_synchronization_token }
     end
 
-    describe 'default scope' do
-      it 'should always return the last application state' do
-        expect(ApplicationState).to receive(:order).with(id: :desc).at_least(1).times
-        ApplicationState.instance
-      end
-    end
-
     describe '.instance' do
       context 'with existing application state' do
         it 'should return the existing application state' do

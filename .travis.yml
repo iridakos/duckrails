@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - 2.4.3
+  - 2.7.2
 before_install:
   - which qmake # to see where it links
   - ls -la `which qmake`

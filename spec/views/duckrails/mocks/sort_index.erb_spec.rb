@@ -34,7 +34,7 @@ RSpec.describe 'duckrails/mocks/sort_index.html.erb', type: :view do
       end
     end
 
-    it { should have_css "a.button.secondary[href='#{duckrails_mocks_path}']", text: t(:cancel) }
-    it { should have_css "a.button.success.update-mocks-order[href='#']", text: t(:save) }
+    it { should have_css "a.btn.btn-secondary[href='#{duckrails_mocks_path}']", text: t(:cancel) }
+    it { should have_css "a.btn.btn-success.update-mocks-order[href='#']", text: t(:save) }
   end
 end

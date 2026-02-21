@@ -6,10 +6,12 @@ module Duckrails
     before_action :load_mock, only: [:edit, :update, :destroy, :deactivate, :activate]
     after_action :reload_routes, only: [:update, :create, :destroy, :deactivate, :activate, :update_order]
 
+    before_action :set_cache_headers, only: [:serve_mock]
+
     skip_before_action :verify_authenticity_token, :only => [:serve_mock]
 
     def index
-      if params[:sort]
+      if params[:sort].present?
         @mocks = Duckrails::Mock.all
         render :sort_index
       else
@@ -43,7 +45,7 @@ module Duckrails
         end
       end
 
-      render nothing: true
+      render plain: nil
     end
 
     def create
@@ -75,22 +77,34 @@ module Duckrails
 
     # This is the one and only action mapped to each mock route
     def serve_mock
-      mock = Duckrails::Mock.find params[:duckrails_mock_id]
-      overrides = (evaluate_content(mock.script_type, mock.script, true) || {}).with_indifferent_access
+      @mock = Duckrails::Mock.find params[:duckrails_mock_id]
 
-      mock.headers.each do |header|
+      overrides = if @mock.script_type.present?
+                    Duckrails::Scripts::Manager.
+                    for(@mock.script_type).
+                    evaluate(@mock.script, binding, force_json: true).
+                    with_indifferent_access
+                  else
+                    {}
+                  end
+
+      @mock.headers.each do |header|
         add_response_header header
       end
 
-      if overrides[:headers]
-        overrides[:headers].each do |header|
-          add_response_header header
-        end
+      overrides[:headers]&.each do |header|
+        add_response_header header
       end
 
-      status = overrides[:status_code] || mock.status
-      content_type = overrides[:content_type] || mock.content_type
-      body = overrides[:body] || evaluate_content(mock.body_type, mock.body_content)
+      status = overrides[:status_code] || @mock.status
+      content_type = overrides[:content_type] || @mock.content_type
+
+      unless (body = overrides[:body])
+        body =
+          Duckrails::Scripts::Manager.
+          for(@mock.body_type).
+          evaluate(@mock.body_content, binding)
+      end
 
       render body: body, content_type: content_type, status: status
     end
@@ -108,38 +122,6 @@ module Duckrails
 
     def add_response_header(header)
       response.headers[header[:name]] = header[:value]
-    end
-
-    def evaluate_content(script_type, script, force_json = false)
-      return nil unless script_type.present?
-
-      result = case script_type
-        when Duckrails::Mock::SCRIPT_TYPE_STATIC
-          script
-        when Duckrails::Mock::SCRIPT_TYPE_EMBEDDED_RUBY
-          context_variables = {
-            response: response,
-            request: request,
-            headers: Hash[request.headers.select{ |header| header[1].is_a? String }],
-            parameters: params
-          }
-
-          Erubis::Eruby.new(script).evaluate(context_variables)
-        when Duckrails::Mock::SCRIPT_TYPE_JS
-          headers = request.headers.select do |header|
-            header[1].is_a? String
-          end
-
-          context = ExecJS.compile("parameters = #{params.to_json}; headers = #{Hash[headers].to_json}")
-          context.exec script
-      end unless script.blank?
-
-      force_json ? JSON.parse(result.blank? ? '{}' : result) : result
-    rescue StandardError => error
-      response.headers['Duckrails-Error'] = error.to_s
-      logger.error error.message
-      logger.error error.backtrace.join "\n"
-      nil
     end
 
     def reload_routes
@@ -166,6 +148,14 @@ module Duckrails
 
     def load_mock
       @mock = Duckrails::Mock.find params[:id]
+    end
+
+    private
+
+    def set_cache_headers
+      response.headers['Cache-Control'] = 'no-cache, no-store'
+      response.headers['Pragma'] = 'no-cache'
+      response.headers['Expires'] = 'Mon, 01 Jan 1990 00:00:00 GMT'
     end
   end
 end

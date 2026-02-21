@@ -1,14 +1,15 @@
 # TODO: use proper namespace, keys etc.
 
 en:
-  welcome_message: "Welcome to Duckrails. Choose what you want to do."
-  mock_the_universe: "Mock the Universe"
+  welcome_message: "Welcome to Duckrails"
+  introduction: "A development tool for easy and dynamic mocking of API endpoints."
   view_all_mocks: View all mocks
   create_new_mock: Create new mock
   hello: "Hello world"
   static: "Static"
   embedded_ruby: "Embedded Ruby"
   js: "Javascript"
+  liquid: "Liquid"
   edit_mock_header: "Edit mock '%{mock}'"
   general_tab: "General"
   response_body_tab: "Response body"

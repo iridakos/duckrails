@@ -1,4 +1,4 @@
-class CreateDuckrailsMocks < ActiveRecord::Migration
+class CreateDuckrailsMocks < ActiveRecord::Migration[4.2]
   def change
     create_table :mocks do |t|
       t.string :name, null: false

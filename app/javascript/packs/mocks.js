@@ -1,12 +1,12 @@
 setMockPositions = function () {
   $('div.mock').each(function(i) {
-        $(this).data('new-pos', i);
+    $(this).data('new-pos', i);
   });
 }
 
 updateMocksOrder = function (event) {
   event.preventDefault();
-  
+
   setMockPositions();
 
   var $sortable = $('.sortable');
@@ -44,16 +44,19 @@ updateMocksOrder = function (event) {
   }
 }
 
-$(function(){
-  if ($('form.mock-form').find('.tabs-content .content').length > 0) {
+$(function() {
+  var tabs = $('form.mock-form').find('.nav-tabs .nav-item');
+  var tabPanes = $('form.mock-form').find('.tab-content .tab-pane');
+
+  if (tabPanes.length > 0) {
     var first_error_tab = null;
 
-    $('form.mock-form').find('.tabs-content .content').each(function(index, element) {
+    tabPanes.each(function(index, element) {
       var $element = $(element);
       var elementId = $element.prop('id');
-      var $tabLink = $('a[href="#' + elementId + '"]');
+      var $tabLink = tabs.find('a[href="#' + elementId + '"]');
 
-      if ($element.find('small.error').length) {
+      if ($element.find('.invalid-feedback').length) {
         $tabLink.addClass('error');
 
         if (!first_error_tab) {
@@ -68,4 +71,6 @@ $(function(){
   }
 
   $('.update-mocks-order').on('click', updateMocksOrder);
+
+  $('.sortable').sortable();
 });

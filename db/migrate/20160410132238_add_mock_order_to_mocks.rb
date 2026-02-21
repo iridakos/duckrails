@@ -1,4 +1,4 @@
-class AddMockOrderToMocks < ActiveRecord::Migration
+class AddMockOrderToMocks < ActiveRecord::Migration[4.2]
   def up
     add_column :mocks, :mock_order, :integer
 
